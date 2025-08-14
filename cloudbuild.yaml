@@ -1,0 +1,42 @@
+steps:
+  # Build the "builder" stage only, tag and push it
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      [
+        '-c',
+        'docker pull gcr.io/getcloudy-469014/rust-gcp-builder:latest || exit 0'
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '--target=builder',
+        '-t', 'gcr.io/getcloudy-469014/rust-gcp-builder:latest',
+        '--cache-from', 'gcr.io/getcloudy-469014/rust-gcp-builder:latest',
+        '.'
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'gcr.io/getcloudy-469014/rust-gcp-builder:latest'
+      ]
+  # Build the final stage, using the builder image for cache
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '--cache-from', 'gcr.io/getcloudy-469014/rust-gcp-builder:latest',
+        '-t', 'gcr.io/getcloudy-469014/rust-gcp-image:latest',
+        '.'
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'gcr.io/getcloudy-469014/rust-gcp-image:latest'
+      ]
+
+images:
+  - 'gcr.io/getcloudy-469014/rust-gcp-image:latest'

@@ -1,0 +1,9 @@
+# Exclude Rust's build directory
+target/
+
+# Exclude git metadata
+.git
+.gitignore
+
+# Exclude gcloudignore file itself
+.gcloudignore
