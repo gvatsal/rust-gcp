@@ -54,7 +54,7 @@ impl Default for AppConfig {
             log_level: "rust_gcp=debug,tower_http::trace=debug".into(),
             google_cloud_project: "getcloudy-469014".into(),
             gae_service: "rust-gcp".into(),
-            port: 3000,
+            port: 8080,
             redishost: "10.207.177.140".into(),
             redisport: 6379,
             pubsub: PubSubConfig {
