@@ -1,5 +1,5 @@
 env = "dev"
-rust_log = "rust_gcp=debug,tower_http::trace=debug"
+log_level = "rust_gcp=debug,tower_http::trace=debug"
 google_cloud_project = "getcloudy-469014"
 gae_service = "rust-gcp"
 port = 8080
